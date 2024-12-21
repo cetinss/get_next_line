@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sencetin <sencetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 04:23:53 by eunlu             #+#    #+#             */
-/*   Updated: 2024/12/18 22:36:16 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/15 20:39:35 by sencetin          #+#    #+#             */
+/*   Updated: 2024/12/21 12:02:40 by sencetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 # endif
 
 # include <stdlib.h>
-# include <stddef.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <unistd.h>
 
 int		check_nl(char *str);
 void	*ft_free(void *ptr);
@@ -29,8 +25,8 @@ char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(char *str);
 
 char	*read_file(int fd, char *str);
-char	*ft_get_line(char *str);
-char	*shift_line(char *str);
+char	*before_nl(char *str);
+char	*after_nl(char *str);
 char	*get_next_line(int fd);
 
 #endif

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sencetin <sencetin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 04:23:39 by eunlu             #+#    #+#             */
-/*   Updated: 2024/12/18 23:29:38 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/21 09:47:00 by sencetin          #+#    #+#             */
+/*   Updated: 2024/12/21 12:02:40 by sencetin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <unistd.h>
 
 char	*read_file(int fd, char *str)
 {
@@ -26,6 +27,7 @@ char	*read_file(int fd, char *str)
 		if (bytes_read == -1)
 		{
 			free(buffer);
+			free(str);
 			return (NULL);
 		}
 		if (bytes_read == 0)
@@ -39,13 +41,13 @@ char	*read_file(int fd, char *str)
 	return (str);
 }
 
-char	*ft_get_line(char *str)
+char	*before_nl(char *str)
 {
 	int		len;
 	char	*line;
 	int		is_newline;
 
-	if (!str || !str[0])
+	if (!str[0])
 		return (NULL);
 	is_newline = check_nl(str);
 	len = 0;
@@ -66,14 +68,12 @@ char	*ft_get_line(char *str)
 	return (line);
 }
 
-char	*shift_line(char *str)
+char	*after_nl(char *str)
 {
 	int		len;
 	int		i;
 	char	*new_str;
 
-	if (!str)
-		return (NULL);
 	len = 0;
 	while (str[len] && str[len] != '\n')
 		++len;
@@ -105,13 +105,7 @@ char	*get_next_line(int fd)
 	str[fd] = read_file(fd, str[fd]);
 	if (!str[fd])
 		return (NULL);
-	line = ft_get_line(str[fd]);
-	if (!line)
-	{
-		free(str[fd]);
-		str[fd] = NULL;
-		return (NULL);
-	}
-	str[fd] = shift_line(str[fd]);
+	line = before_nl(str[fd]);
+	str[fd] = after_nl(str[fd]);
 	return (line);
 }
